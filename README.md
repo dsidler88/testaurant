@@ -1,6 +1,14 @@
-npx prisma db push
-this reads the schema and generates or updates the db
-localhost:3000/api/seed will seed your db with dummy data
+# Testaurant: A NextJS 13 Opentable clone.
 
-running postgres in a local docker container:
-docker run --name testaurant -e POSTGRES_PASSWORD=password -p 54320:5432 -d postgres
+This application is a clone based on Opentable, useless other than for learning purposes. It features a modern stack of React, NextJS 13, Postgresql, Prisma, and TailwindCSS
+
+## Database/Dummy Data
+
+- The app uses Prisma. The schema is located in the _prisma_ folder. To generate the DB based on this schema, run `npx prisma db push`.
+- DB connection is currently configured to hit a local Postgres instance in a Docker container. But can easily be modified with any postgres DB URL.
+- `docker run --name testaurant -e POSTGRES_PASSWORD=password -p 54320:5432 -d postgres`
+- Once the DB is created, the dummy data can be seeded simply by visiting `localhost:3000/api/seed`
+
+## Auth
+
+For learning purposes, I went with a custom authentication solution. It is secure, and use bcrypt to hash passwords, but still a better solution in a real world app would be OAuth or something similar. Using "jose" JWT manager

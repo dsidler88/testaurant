@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
 import { PrismaClient } from "@prisma/client";
-//import bcrypt from "bcrypt";
-//import * as jose from "jose";
+import bcrypt from "bcrypt";
+import * as jose from "jose";
 //import { setCookie } from "cookies-next";
 
 const prisma = new PrismaClient();
@@ -71,12 +71,35 @@ export default async function handler(
         .json({ errorMessage: "Email is associated with another account" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 9);
+
+    const user = await prisma.user.create({
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        password: hashedPassword,
+        city,
+        phone,
+        email,
+      },
+    });
+
+    const alg = "HS256";
+    //create a JWT based on our payload and the algo we want
+    //set expiration time too
+    const token = await new jose.SignJWT({
+      email: user.email,
+    })
+      .setProtectedHeader({ alg })
+      .setExpirationTime("24h")
+      .sign(process.env.JWT_SECRET);
+
     validationSchema.forEach((check) => {
       if (!check.valid) {
         errors.push(check.errorMessage);
       }
     });
 
-    res.status(200).json({ hello: "Hello World" });
+    res.status(200).json({ hello: user });
   }
 }
