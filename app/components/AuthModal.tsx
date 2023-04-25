@@ -4,8 +4,11 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 
 import Modal from "@mui/material/Modal";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import AuthModalInputs from "./AuthModalInputs";
+import useAuth from "@/hooks/useAuth";
+import { useContext } from "react";
+import { AuthenticationContext } from "../context/AuthContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,9 +26,15 @@ const style = {
 //instead of making 2 components, we handle signin/signup with a boolean
 //destructuring like this is same as declaring a type for props
 export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
+  //can destructure whatever we want from the context
+  //you can use onclick to SET these or CALL the setAuthState function
+  const { error, loading, data, setAuthState } = useContext(
+    AuthenticationContext
+  );
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { signin } = useAuth();
 
   const renderContent = (signinContent: string, signupContent: string) => {
     return isSignIn ? signinContent : signupContent;
@@ -49,6 +58,34 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
     city: "",
   });
 
+  //Disable button if fields empty. can only use useEffect client side
+  const [disabled, setDisabled] = useState(true);
+  useEffect(() => {
+    if (isSignIn) {
+      if (inputs.email && inputs.password) {
+        return setDisabled(false);
+      }
+    } else {
+      if (
+        inputs.firstName &&
+        inputs.lastName &&
+        inputs.email &&
+        inputs.password &&
+        inputs.phone &&
+        inputs.city
+      ) {
+        return setDisabled(false);
+      }
+    }
+    setDisabled(true);
+  }, [inputs]);
+
+  const handleClick = () => {
+    if (isSignIn) {
+      signin({ email: inputs.email, password: inputs.password });
+    }
+  };
+
   return (
     <div>
       <button
@@ -68,6 +105,7 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
       >
         <Box sx={style}>
           <div className="p-2">
+            <h1>{error}</h1>
             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
               <p className="text-sm">
                 {renderContent("Sign in", "Create Account")}
@@ -85,7 +123,11 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
                 inputs={inputs}
                 handleChangeInput={handleChangeInput}
               />
-              <button className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400">
+              <button
+                className="uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400"
+                disabled={disabled}
+                onClick={handleClick}
+              >
                 {renderContent("Sign In", "Create Account")}
               </button>
             </div>
