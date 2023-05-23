@@ -23,6 +23,7 @@ interface AuthState extends State {
 }
 
 //our context (GLOBAL state) is of type AuthState
+//so AuthenticationContext IS createContext, of type AuthState, with this initial value
 export const AuthenticationContext = createContext<AuthState>({
   loading: false,
   error: null,
@@ -36,7 +37,7 @@ export default function AuthContext({
 }: {
   children: React.ReactNode;
 }) {
-  //as discussed, we have 3 states, loading, data, error
+  //we have 3 states, loading, data, error
   //but it needs to be GLOBAL, so we need to use context
   //if we didn't make this of type State, values would be stuck false and null
   const [authState, setAuthState] = useState<State>({
@@ -48,6 +49,7 @@ export default function AuthContext({
   //value is the state of the context
   //ALL children have access to this state
   //the children are the components that are wrapped by the context provider
+  //just remember value is required and it is the global state of the context
   return (
     <AuthenticationContext.Provider value={{ ...authState, setAuthState }}>
       {children}

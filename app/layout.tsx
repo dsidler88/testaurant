@@ -3,7 +3,7 @@ import AuthContext from "./context/AuthContext";
 import "./globals.css";
 
 export const metadata = {
-  title: "My Testaurant App",
+  title: "Test Clone Project",
   description: "",
   icons: [
     {
@@ -20,6 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   //children is the JSX of the page WE ARE CURRENTLY ON
+  //we wrap everything in the AuthContext so that we can access the state
   return (
     <html lang="en">
       <body>
