@@ -35,7 +35,8 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { signin } = useAuth();
+  //useAuth is a custom hook we made
+  const { signin, signup} = useAuth();
 
   const renderContent = (signinContent: string, signupContent: string) => {
     return isSignIn ? signinContent : signupContent;
@@ -82,8 +83,11 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
   }, [inputs]);
 
   const handleClick = () => {
+    //handle both sign in and sign up
     if (isSignIn) {
-      signin({ email: inputs.email, password: inputs.password });
+      signin({ email: inputs.email, password: inputs.password }, handleClose);
+    }else{
+      signup(inputs, handleClose)
     }
   };
 
@@ -120,6 +124,9 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
                 <p className="text-sm">
                   {renderContent("Sign in", "Create Account")}
                 </p>
+                <p>
+                  {data?.firstName} {data?.lastName}
+                </p>
               </div>
               <div className=" m-auto">
                 <h2 className="text-2xl font-light text-center">
@@ -127,6 +134,7 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
                     "Log Into Your Account",
                     "Create Your Testaurant Account"
                   )}
+                  
                 </h2>
                 <AuthModalInputs
                   isSignIn={isSignIn}
@@ -138,7 +146,7 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
                   disabled={disabled}
                   onClick={handleClick}
                 >
-                  {renderContent("Sign In", "Create Account")}
+                  {renderContent("Sign In"+data?.city, "Create Account")}
                 </button>
               </div>
             </div>

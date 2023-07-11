@@ -11,10 +11,10 @@ export default function Loading() {
     <main>
       <Header />
       <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
+        {[1, 2, 3, 4,5, 6, 7, 8, 9, 10, 11, 12 ].map((item) => (
           <div
             key={item}
-            className="animate-pulse bg-red-800 w-64 h-72 rounded overflow-hidden border cursor-pointer"
+            className="animate-pulse bg-purple-800 w-64 h-72 m-3 rounded-3xl overflow-hidden border cursor-pointer"
           ></div>
         ))}
       </div>

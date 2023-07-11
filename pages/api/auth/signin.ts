@@ -45,7 +45,7 @@ export default async function handler(
     if (!user) {
       return res
         .status(401)
-        .json({ errorMessage: "email or password is invalid" });
+        .json({ errorMessage: "email or password is invalid!" });
     }
 
     //compares entered password to hashed password in database

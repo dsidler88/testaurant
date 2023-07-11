@@ -16,6 +16,7 @@ export default async function handler(
   await prisma.item.deleteMany();
   await prisma.restaurant.deleteMany();
   await prisma.location.deleteMany();
+  console.log("deleted");
   await prisma.cuisine.deleteMany();
    await prisma.user.deleteMany();
 
@@ -48,7 +49,7 @@ export default async function handler(
     data: [
       // INDIAN //
       {
-        name: "Vivaan - fine Indian",
+        name: "Vivaan - fine Dumpster trash",
         main_image:
           "https://resizer.otstatic.com/v2/photos/wide-huge/1/32109459.jpg",
         price: PRICE.REGULAR,
@@ -520,7 +521,7 @@ export default async function handler(
   const restaurants = await prisma.restaurant.findMany();
 
   const vivaanId =
-    restaurants.find((restaurant) => restaurant.name === "Vivaan - fine Indian")
+    restaurants.find((restaurant) => restaurant.name === "Vivaan - fine Dumpster trash")
       ?.id || 1;
   const RamaKrishnaId =
     restaurants.find((restaurant) => restaurant.name === "RamaKrishna Indian")
@@ -568,7 +569,7 @@ export default async function handler(
   await prisma.item.createMany({
     data: [
       {
-        name: "Ghee roast chicken wings",
+        name: "XXXXX roast chicken wings",
         description:
           "Crispy chicken wings coated in a sauce made from roasted whole spices and clarified butter.",
         price: "$18.00",

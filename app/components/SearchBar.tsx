@@ -1,11 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthenticationContext } from "../context/AuthContext";
 
 export default function SearchBar() {
   const router = useRouter();
   const [location, setLocation] = useState("");
+  const { error, loading, data, setAuthState } = useContext(
+    AuthenticationContext
+  );
 
   return (
     <div className="text-left text-lg py-3 m-auto flex justify-center">
@@ -22,10 +26,10 @@ export default function SearchBar() {
         onClick={() => {
           if (location === "") return;
           router.push(`/search?city=${location}`);
-          setLocation("");
+          setLocation("BLAH");
         }}
       >
-        Let's go
+        Let's go {data?.city}
       </button>
     </div>
   );
