@@ -35,5 +35,17 @@ export default async function handler(
       city: true,
     },
   });
-  return res.json({ user });
+  if (!user) {
+    return res.status(401).json({ 
+      errorMessage: "unauthorized, can't find user" 
+    })
+  }
+  return res.json({ 
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    phone: user.phone,
+    city: user.city,
+
+   });
 }

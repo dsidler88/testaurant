@@ -107,43 +107,7 @@ const useAuth = () => {
   };
   
 
-  //immediately check if the user has a JWT token
-  const fetchUser = async () =>{
-    setAuthState({
-      data: null,
-      error: null,
-      loading:true
-    })
-    try{
-      const jwt = getCookie("jwt")
-      if(!jwt){
-        return setAuthState({
-          data: null,
-          error: null,
-          loading:false
-        })
-      }
-
-      const response = await axios.get("http://localhost:3000/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${jwt}`
-        }
-      })
-
-      //grab the jwt token from the cookie and append it to the header in all requests
-      axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`
-
-      //if the user is logged in, we will get a response and can set the state
-      setAuthState({
-        data: response.data,
-        error: null,
-        loading:false
-      })
-
-    }catch(error){
-      console.log(error)
-    }
-  }
+  
 
   return { signin, signup };
 };

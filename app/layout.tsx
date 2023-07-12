@@ -20,7 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   //children is the JSX of the page WE ARE CURRENTLY ON
-  //we wrap everything in the AuthContext so that we can access the state
+  //we wrap everything in the AuthContext so that we can access the state.
+  //authcontext is A COMPONENT, so we can wrap it around other components.
+  //it has hooks for many functions, like JWT, signin, signup, etc.
+  //context data is accessible by all children of the context provider, that are client side
+  //then u can render different server components based on the state of the context
   return (
     <html lang="en">
       <body>
