@@ -287,11 +287,10 @@ export default async function handler(
         description:
           "The first location in Canada, from famed restauranteurs Noble 33, welcomes patrons into an immersive dining experience.",
         images: [
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745080.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745081.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745093.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745144.jpg",
+          getRandomImageUrl(),
+          getRandomImageUrl(),
+          getRandomImageUrl(),
+          getRandomImageUrl(),
         ],
         open_time: "15:00:00.000Z",
         close_time: "21:00:00.000Z",
@@ -306,11 +305,10 @@ export default async function handler(
         description:
           "As a family owned business, our goal is simple: to consistently deliver fresh and delicious Mexican flavours in a FUN and friendly atmosphere with the best service around!",
         images: [
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47600418.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47429797.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47429802.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg",
-          "https://resizer.otstatic.com/v2/photos/xlarge/2/47429814.jpg",
+          getRandomImageUrl(),
+          getRandomImageUrl(),
+          getRandomImageUrl(),
+          getRandomImageUrl(),
         ],
         open_time: "10:00:00.000Z",
         close_time: "21:00:00.000Z",

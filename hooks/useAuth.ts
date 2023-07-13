@@ -1,6 +1,6 @@
 import { AuthenticationContext } from "@/app/context/AuthContext";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, removeCookies } from "cookies-next";
 import { get } from "http";
 import { useContext } from "react";
 
@@ -8,7 +8,7 @@ const useAuth = () => {
   //useContext is a hook that references THE global context
   // that was created with createContext
   //destructure the different values from the context
-  const { data, error, loading, setAuthState } = useContext(
+  const {setAuthState } = useContext(
     AuthenticationContext
   );
 
@@ -107,9 +107,16 @@ const useAuth = () => {
   };
   
 
-  
+  const signout = () =>{
+    removeCookies("jwt")
+    setAuthState({
+      data: null,
+      error: null,
+      loading: false,
+    })
+  }
 
-  return { signin, signup };
+  return { signin, signup, signout };
 };
 
 export default useAuth;

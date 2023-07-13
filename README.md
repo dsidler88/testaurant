@@ -8,7 +8,9 @@ This application is a clone based on Opentable, useless other than for learning 
 - DB connection is currently configured to hit a local Postgres instance in a Docker container. But can easily be modified with any postgres DB URL.
 - `docker run --name testaurant -e POSTGRES_PASSWORD=password -p 54320:5432 -d postgres`
 - Once the DB is created, the dummy data can be seeded simply by visiting `localhost:3000/api/seed`
+- NPX PRISMA STUDIO is a ridiculously useful tool for viewing your tables.
 
 ## Auth
 
 For learning purposes, I went with a custom authentication solution. It is secure, and use bcrypt to hash passwords, but still a better solution in a real world app would be OAuth or something similar. Using "jose" JWT manager
+
