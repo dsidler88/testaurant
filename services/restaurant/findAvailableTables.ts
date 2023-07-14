@@ -1,7 +1,7 @@
 //extract logic
 
 import { times } from "@/data";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Table } from "@prisma/client";
 import { NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
@@ -9,12 +9,16 @@ export const findAvailableTables = async ({
   time,
   day,
   res,
-  slug,
+  restaurant
 }: {
   time: string;
   day: string;
   res: NextApiResponse;
-  slug: string;
+  restaurant: {
+    tables: Table[];
+    open_time: string
+    close_time: string
+  }
 }) => {
   //searches the array based on the time in the query, and returns the searchTimes
   //from the same object
@@ -68,22 +72,22 @@ export const findAvailableTables = async ({
   });
 
   //added open time and close time later when we did availaibiltiy
-  const restaurant = await prisma.restaurant.findUnique({
-    where: {
-      slug,
-    },
-    select: {
-      tables: true,
-      open_time: true,
-      close_time: true,
-    },
-  });
+//   const restaurant = await prisma.restaurant.findUnique({
+//     where: {
+//       slug,
+//     },
+//     select: {
+//       tables: true,
+//       open_time: true,
+//       close_time: true,
+//     },
+//   });
 
-  if (!restaurant) {
-    return res.status(400).json({
-      errorMessage: "Please fill all the fields",
-    });
-  }
+//   if (!restaurant) {
+//     return res.status(400).json({
+//       errorMessage: "Please fill all the fields",
+//     });
+//   }
 
   const tables = restaurant.tables;
 
